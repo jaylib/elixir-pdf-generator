@@ -69,6 +69,7 @@ defmodule PdfGenerator do
           PdfGenerator.PathAgent, [[
             wkhtml_path: Application.get_env(:pdf_generator, :wkhtml_path ),
             pdftk_path:  Application.get_env(:pdf_generator, :pdftk_path  ),
+            command_prefix:  Application.get_env(:pdf_generator, :command_prefix  ),
           ]]
         )
       ]
@@ -109,6 +110,7 @@ defmodule PdfGenerator do
   def generate( html, options ) do
     wkhtml_path = PdfGenerator.PathAgent.get.wkhtml_path
     html_file = Path.join System.tmp_dir, Misc.Random.string <> ".html"
+    command_prefix = PdfGenerator.PathAgent.get.command_prefix
     File.write html_file, html
     pdf_file  = Path.join System.tmp_dir, Misc.Random.string <> ".pdf"
 
@@ -119,7 +121,7 @@ defmodule PdfGenerator do
 
     executable     = wkhtml_path
     arguments      = List.flatten( [ shell_params, html_file, pdf_file ] )
-    command_prefix = Keyword.get( options, :command_prefix ) || PdfGenerator.PathAgent.get |> Map.get( :command_prefix )
+    #command_prefix = Keyword.get( options, :command_prefix ) || PdfGenerator.PathAgent.get |> Map.get( :command_prefix )
 
     # allow for xvfb-run wkhtmltopdf arg1 arg2
     # or sudo wkhtmltopdf ...
@@ -129,6 +131,7 @@ defmodule PdfGenerator do
         cmd -> { cmd, [executable] ++ arguments }
       end
 
+    IO.inspect { executable, arguments }
     %Result{ out: _output, status: status, err: error } = Porcelain.exec(
       executable, arguments, [in: "", out: :string, err: :string]
     )
