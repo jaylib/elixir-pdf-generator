@@ -20,7 +20,7 @@ defmodule PdfGenerator.PathAgent do
       [
         wkhtml_path:    System.find_executable( "wkhtmltopdf" ),
         pdftk_path:     System.find_executable( "pdftk" ),
-        # command_prefix: System.find_executable( "xvfb-run" )
+        command_prefix: System.find_executable( "xvfb-run" )
       ] 
       ++ paths_from_options
       |> Enum.filter( fn { _, v } -> v != nil end ) 
