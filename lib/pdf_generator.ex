@@ -109,10 +109,10 @@ defmodule PdfGenerator do
 
   def generate( html, options ) do
     wkhtml_path = PdfGenerator.PathAgent.get.wkhtml_path
-    html_file = Path.join System.tmp_dir, Misc.Random.string <> ".html"
+    html_file = Path.join System.tmp_dir, "temp_html" <> ".html"
     command_prefix = PdfGenerator.PathAgent.get.command_prefix
     File.write html_file, html
-    pdf_file  = Path.join System.tmp_dir, Misc.Random.string <> ".pdf"
+    pdf_file  = Path.join System.tmp_dir, "temp_html" <> ".pdf"
 
     shell_params = [
       "--page-size", Keyword.get( options, :page_size ) || "A4",
