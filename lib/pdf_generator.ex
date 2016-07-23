@@ -1,6 +1,6 @@
 defmodule PdfGenerator do
 
-  @vsn "0.3.0"
+  @vsn "0.3.1"
 
   @moduledoc """
   # PdfGenerator
