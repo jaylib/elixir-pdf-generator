@@ -1,6 +1,6 @@
 defmodule PdfGenerator.PathAgent do
 
-  defstruct wkhtml_path: nil, pdftk_path: nil
+  defstruct wkhtml_path: nil, pdftk_path: nil, command_prefix: nil
 
   @moduledoc """
   Will check system requirements on startup and keep 
